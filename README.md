@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# A/B Testing Platform for Blog Posts
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hello there! It's Elif here. In this document, I'd like to walk you through my approach and the technical decisions made while tackling the challenge of implementing an A/B testing platform for blog posts.
 
-## Available Scripts
+## Setup Instructions
 
-In the project directory, you can run:
+To get this project up and running on your local machine, follow these steps:
 
-### `npm start`
+`
+git clone 
+cd your-project-name
+`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## My Approach
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1. Designing for Scalability and Flexibility
 
-### `npm test`
+Understanding that the content team might experiment with various elements, from headlines to images, I designed the system with scalability in mind. The solution had to accommodate an undefined number of content variations and types, ensuring flexibility for future experiments.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Empowering Content Editors
 
-### `npm run build`
+I built a user-friendly interface that abstracts away the complexities of the A/B testing logic. Editors can define test parameters, including variations in text, images, and cta buttons, directly through this interface. I used React for the UI to take advantage of its component based structure, making the interface intuitive for non-technical users.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. State Management with Redux
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Choosing Redux for state management was a pivotal technical decision. Redux provided a centralized store for managing the state of A/B tests, user assignments to variations, and tracking interactions. This choice ensured that the application state remained consistent across user sessions and interactions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 4. Persistent User Variation Assignment
 
-### `npm run eject`
+A critical aspect of A/B testing is ensuring that once a user is assigned a variation, they continue to see the same variation throughout their session. Initially, I leveraged localStorage for persistence; however, to streamline state management and adhere to Redux patterns, I transitioned to using Redux entirely, acknowledging the challenge of state persistence across sessions.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 5. Analytics and Event Tracking
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For tracking user interactions, I implemented a service that logs page views and clicks. Each logged event includes the user's unique identifier, the assigned variation, and the action taken. This meticulous tracking allows for calculating the CTR for each variation. This setup helps in accurately calculating the CTR for each variation. To ensure reliability, the system counts each user's interaction once per variation.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 6. Using TypeScript for Improved Code Quality
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Incorporating TypeScript was another crucial decision. It significantly enhanced code reliability and maintainability by introducing type safety
 
-## Learn More
+### 7. Styling with Tailwind CSS
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For the project's styling, Tailwind CSS was chosen for its utility-first approach, which allowed for rapid UI development.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Further Enhancements
+
+- Backend Integration for Data Handling: Advancing the platform would require setting up a backend integration to centralize and manage A/B testing data more efficiently. This move would improve data analysis capabilities and user management, setting the stage for more dynamic and real-time content strategy adjustments.
+
+- Analytics Enhancement: Integrating the service I created with Statstig or Google Analytics would be another upgrade to the currrent version of the project.

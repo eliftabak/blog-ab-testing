@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Article from "./components/Article";
+import { trackPageView } from "./services/AnalyticsService";
+import useGenerateUserUUID from "./hooks/useGenerateUserUUID";
+import useAssignABTestVariation from "./hooks/useAssignABTestVariation";
+import ABTestManager from "./modules/ABTestManager";
+import Navbar from "./components/Navbar";
 
 function App() {
+  const userUUID = useGenerateUserUUID();
+  const variationId = useAssignABTestVariation();
+
+  useEffect(() => {
+    trackPageView(window.location.pathname, userUUID, variationId);
+  }, [userUUID, variationId]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<Article />} />
+        <Route path="/ab-tests" element={<ABTestManager />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
