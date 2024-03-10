@@ -6,10 +6,28 @@ Hello there! It's Elif here. In this document, I'd like to walk you through my a
 
 To get this project up and running on your local machine, follow these steps:
 
+#### Clone the repository:
 `
-git clone 
-cd your-project-name
+git clone https://github.com/eliftabak/blog-ab-testing.git
 `
+
+`
+cd blog-ab-testing
+`
+
+#### Install dependencies:
+
+`
+npm install
+`
+
+#### Start the development server:
+
+`
+npm start
+`
+
+Note: This project was bootstrapped with Create React App. For more information on how to perform common tasks, you can find the [Create React App documentation here](https://create-react-app.dev/docs/getting-started/).
 
 ## My Approach
 
